@@ -1,0 +1,317 @@
+/* Stessi token di design della console HTML */
+:root {
+  --carta: #f4f6f4;
+  --pannello: #ffffff;
+  --inchiostro: #22313a;
+  --grigio: #5c6b72;
+  --linea: #d8deda;
+  --ambra: #c97e1f;
+  --ambra-scuro: #a96716;
+  --ok: #2e7d5b;
+  --errore: #b3452f;
+  --conflitto: #8a5a9e; /* 403 e 409: i casi che il progetto deve dimostrare */
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  background: var(--carta);
+  color: var(--inchiostro);
+  font-size: 14px;
+  line-height: 1.45;
+}
+code,
+pre,
+.mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+header {
+  background: var(--inchiostro);
+  color: #edf1ef;
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header h1 {
+  font-size: 16px;
+  font-weight: 650;
+}
+header h1 small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #9fb0ac;
+}
+.barra-destra {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+header input,
+header select {
+  background: #33454f;
+  border: 1px solid #4a5d66;
+  color: #edf1ef;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+header label {
+  font-size: 11px;
+  color: #9fb0ac;
+}
+.badge-ruolo {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 650;
+  font-size: 12px;
+  background: #4a5d66;
+}
+.badge-ruolo.USER {
+  background: #5c6b72;
+}
+.badge-ruolo.COMMERCIALE {
+  background: var(--ambra);
+  color: #201503;
+}
+.badge-ruolo.CONTABILE {
+  background: #2e6e7d;
+}
+.badge-ruolo.ADMIN {
+  background: #edf1ef;
+  color: var(--inchiostro);
+}
+.badge-ruolo.ANONIMO,
+.badge-ruolo.SCONOSCIUTO {
+  background: transparent;
+  border: 1px dashed #6b7d85;
+  color: #9fb0ac;
+}
+
+main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 430px;
+  gap: 18px;
+  padding: 18px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 980px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+details {
+  background: var(--pannello);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+summary {
+  cursor: pointer;
+  padding: 12px 16px;
+  font-weight: 650;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+summary:focus-visible {
+  outline: 2px solid var(--ambra);
+  outline-offset: -2px;
+}
+summary .chi {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--grigio);
+}
+.corpo {
+  padding: 4px 16px 16px;
+  border-top: 1px solid var(--linea);
+}
+
+.operazione {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 8px;
+  padding: 12px 0;
+}
+.operazione + .operazione {
+  border-top: 1px dashed var(--linea);
+}
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.campo span {
+  font-size: 11px;
+  color: var(--grigio);
+}
+.campo input,
+.campo select {
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  padding: 7px 8px;
+  font-size: 13px;
+  min-width: 130px;
+  background: #a19f68;
+}
+.campo input:focus,
+.campo select:focus,
+header input:focus,
+header select:focus {
+  outline: 2px solid var(--ambra);
+  outline-offset: 0;
+  border-color: var(--ambra);
+}
+.campo input.largo {
+  min-width: 300px;
+}
+.campo input.uuid {
+  min-width: 300px;
+}
+.campo input.corto {
+  min-width: 70px;
+  width: 70px;
+}
+
+button {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #e7ece9;
+  color: var(--inchiostro);
+}
+button:hover {
+  background: #dce3df;
+}
+button:focus-visible {
+  outline: 2px solid var(--inchiostro);
+  outline-offset: 1px;
+}
+button.primaria {
+  background: var(--ambra);
+  color: #fff;
+}
+button.primaria:hover {
+  background: var(--ambra-scuro);
+}
+button.pericolo {
+  background: #f3e2dd;
+  color: var(--errore);
+}
+button.pericolo:hover {
+  background: #edd3cc;
+}
+
+aside {
+  position: sticky;
+  top: 76px;
+  align-self: start;
+  max-height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
+}
+aside h2 {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--grigio);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+aside h2 button {
+  margin-left: auto;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.registro {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.voce {
+  background: var(--pannello);
+  border: 1px solid var(--linea);
+  border-left: 4px solid var(--grigio);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+.voce.s2 {
+  border-left-color: var(--ok);
+}
+.voce.s4 {
+  border-left-color: var(--errore);
+}
+.voce.s43,
+.voce.s49 {
+  border-left-color: var(--conflitto);
+}
+.voce .riga {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12px;
+}
+.voce .metodo {
+  font-weight: 700;
+}
+.voce .stato {
+  margin-left: auto;
+  font-weight: 700;
+}
+.voce.s2 .stato {
+  color: var(--ok);
+}
+.voce.s4 .stato {
+  color: var(--errore);
+}
+.voce.s43 .stato,
+.voce.s49 .stato {
+  color: var(--conflitto);
+}
+.voce .come {
+  font-size: 11px;
+  color: var(--grigio);
+  margin-top: 2px;
+}
+.voce pre {
+  margin-top: 6px;
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #f7f9f8;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+.vuoto {
+  color: var(--grigio);
+  font-size: 13px;
+  padding: 20px 10px;
+  text-align: center;
+  border: 1px dashed var(--linea);
+  border-radius: 8px;
+}
